@@ -19,8 +19,6 @@ class UserController extends Controller
         } elseif ($user->isManager()) {
             $users = User::whereHas('roles', function ($query) {
                 $query->where('name', 'supervisor');
-            })->whereHas('companies', function ($query) use ($user) {
-                $query->where('id', $user->company_id);
             })->get();
         } elseif ($user->isSupervisor()) {
             if ($user->companies->isNotEmpty()) {
